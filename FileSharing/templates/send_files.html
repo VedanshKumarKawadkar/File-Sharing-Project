@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>File Sharing | Send Files</title>
+</head>
+<body>
+    {% include 'userdetails.html' %}
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="file">
+            <h3>Select File</h3>
+            <table>
+                <tr>
+                    <td><label for="file">Upload File</label></td>
+                    <td><input type="file" id="file_in" name="file_in" required></td>
+                </tr>
+                <tr>    
+                    <td><label for="filename">Set File Name</label></td>
+                    <td><input type="text" name="filename" id="filename" required></td>
+                </tr>
+            </table>
+        </div>
+        <div class="receivers">
+            <h3 id="receivers-heading">Select Receivers</h3>
+            <table class="receivers-list">
+                <tr>
+                    <td></td>
+                    <td>Username</td>
+                </tr>
+                {% for i in all_receivers %}
+                <tr>
+                    <td><input type="checkbox" name="receivers" class="check" value="{{ i }}"></td>
+                    <td>{{ i }}</td>                    
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <input type="submit" value="Send" id="btn" disabled="disabled">
+    </form>
+
+    <script>
+        const checkboxes=[...document.getElementsByClassName("check")]
+        const button=document.getElementById("btn")
+        function checked(){
+            button.disabled=!(checkboxes.map(checkbox=>checkbox.checked).includes(true))
+        }
+        checkboxes.forEach(checkbox=>checkbox.addEventListener("change",checked))
+    </script>
+</body>
+</html>

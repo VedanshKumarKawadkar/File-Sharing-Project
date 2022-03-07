@@ -1,0 +1,21 @@
+<div class="heading">
+    <h1>File Sharing | Hello</h1>
+    <h3>User Details</h3>
+    <table>
+        {% for i in user_details %}
+        <tr>
+            <td>Name:</td>
+            <td>{{ i.name }}</td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td>{{ i.username }}</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{ i.email }}</td>
+        </tr>
+    </table>
+    {% endfor %}
+    <br>
+</div>
